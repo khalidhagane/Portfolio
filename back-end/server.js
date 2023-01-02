@@ -14,17 +14,23 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true }))
 connectDB();
 
-const router = require('./Routes/AuthRouter')
+const routerAuth = require('./Routes/AuthRouter')
+const routerFormation = require('./Routes/FormationRouter')
+const routerProjet = require('./Routes/ProjetRouter')
+
+
 // const routerManager =  require('./routers/managerRoute')
 // const routerLivreur =  require('./routers/livreurRoute')
 // const routerClient =  require('./routers/clientRoute')
 const {errorHandler} = require('./middlewares/errorMiddleware')
 
-app.use('/api/auth',router)
-// app.use('/api/user',routerManager)
-// app.use('/api/user',routerLivreur)
+app.use('/api/auth',routerAuth)
+app.use('/api/formation',routerFormation)
+app.use('/api/projet',routerProjet)
 // app.use('/api/user',routerClient)
 app.use(errorHandler)
+app.use(express.static('public'))
+
 
 const port = process.env.PORT || 3000
  app.listen(port,(err)=>{
